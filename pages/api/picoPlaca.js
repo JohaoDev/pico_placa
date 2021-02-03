@@ -31,7 +31,7 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
     case "Monday":
       if (plateNumberValue == 1 || plateNumberValue == 2) {
         if (validateTime(timeValue)) {
-          return res.status(401).json({
+          return res.status(200).json({
             circulate: false,
             data: null,
             msm: "Can't circulate.",
@@ -43,12 +43,18 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
             msm: "Can circulate",
           });
         }
+      } else {
+        return res.status(200).json({
+          circulate: true,
+          data: `Day: ${dayValue}, Time: ${timeValue}, Your Last Plate Digit: ${plateNumberValue}.`,
+          msm: "Can circulate",
+        });
       }
 
     case "Tuesday":
       if (plateNumberValue == 3 || plateNumberValue == 4) {
         if (validateTime(timeValue)) {
-          return res.status(401).json({
+          return res.status(200).json({
             circulate: false,
             data: null,
             msm: "Can't circulate.",
@@ -60,12 +66,18 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
             msm: "Can circulate",
           });
         }
+      } else {
+        return res.status(200).json({
+          circulate: true,
+          data: `Day: ${dayValue}, Time: ${timeValue}, Your Last Plate Digit: ${plateNumberValue}.`,
+          msm: "Can circulate",
+        });
       }
 
     case "Wednesday":
       if (plateNumberValue == 5 || plateNumberValue == 6) {
         if (validateTime(timeValue)) {
-          return res.status(401).json({
+          return res.status(200).json({
             circulate: false,
             data: null,
             msm: "Can't circulate.",
@@ -77,12 +89,18 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
             msm: "Can circulate",
           });
         }
+      } else {
+        return res.status(200).json({
+          circulate: true,
+          data: `Day: ${dayValue}, Time: ${timeValue}, Your Last Plate Digit: ${plateNumberValue}.`,
+          msm: "Can circulate",
+        });
       }
 
     case "Thursday":
       if (plateNumberValue == 7 || plateNumberValue == 8) {
         if (validateTime(timeValue)) {
-          return res.status(401).json({
+          return res.status(200).json({
             circulate: false,
             data: null,
             msm: "Can't circulate.",
@@ -94,12 +112,18 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
             msm: "Can circulate",
           });
         }
+      } else {
+        return res.status(200).json({
+          circulate: true,
+          data: `Day: ${dayValue}, Time: ${timeValue}, Your Last Plate Digit: ${plateNumberValue}.`,
+          msm: "Can circulate",
+        });
       }
 
     case "Friday":
       if (plateNumberValue == 9 || plateNumberValue == 0) {
         if (validateTime(timeValue)) {
-          return res.status(401).json({
+          return res.status(200).json({
             circulate: false,
             data: null,
             msm: "Can't circulate.",
@@ -111,6 +135,12 @@ const validateDayPlate = (dayValue, plateNumberValue, timeValue, res) => {
             msm: "Can circulate",
           });
         }
+      } else {
+        return res.status(200).json({
+          circulate: true,
+          data: `Day: ${dayValue}, Time: ${timeValue}, Your Last Plate Digit: ${plateNumberValue}.`,
+          msm: "Can circulate",
+        });
       }
 
     default:

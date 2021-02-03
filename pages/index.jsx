@@ -24,7 +24,9 @@ export default function Index() {
     axios
       .post(API_URL, postData)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.circulate);
+        response.data.circulate ? SetResponse("Yes") : SetResponse("No");
+        SetLoading(false);
       })
       .catch((error) => console.error(error));
   };
@@ -86,7 +88,19 @@ export default function Index() {
             </div>
           ) : (
             <div className="w-full py-4 flex justify-center">
-              <h1 className="text-6xl font-bold text-blue-500">---</h1>
+              {response ? (
+                response == "Yes" ? (
+                  <h1 className="text-6xl font-bold text-green-500">
+                    {response}
+                  </h1>
+                ) : (
+                  <h1 className="text-6xl font-bold text-red-500">
+                    {response}
+                  </h1>
+                )
+              ) : (
+                <h1 className="text-6xl font-bold text-blue-500">---</h1>
+              )}
             </div>
           )}
         </section>
