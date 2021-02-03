@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import Head from "next/head";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 import PersonalMessage from "./personaMessage";
 
 const API_URL = "http://localhost:3000/api/picoPlaca";
@@ -16,21 +18,32 @@ export default function Index() {
   const canCirculate = async () => {
     SetLoading(true);
 
-    let postData = {
-      data: {
-        plateNumber,
-        date,
-        time,
-      },
-    };
-
-    axios
-      .post(API_URL, postData)
-      .then((response) => {
-        response.data.circulate ? SetResponse("Yes") : SetResponse("No");
+    if (plateNumber == "" || date == "" || time == "") {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Fill out the entire form before continuing",
+        showConfirmButton: true,
+      }).then(() => {
         SetLoading(false);
-      })
-      .catch((error) => console.error(error));
+      });
+    } else {
+      let postData = {
+        data: {
+          plateNumber,
+          date,
+          time,
+        },
+      };
+
+      axios
+        .post(API_URL, postData)
+        .then((response) => {
+          response.data.circulate ? SetResponse("Yes") : SetResponse("No");
+          SetLoading(false);
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
@@ -52,7 +65,9 @@ export default function Index() {
       </div>
 
       <div className="relative h-full">
-        <h1 className="text-4xl font-bold text-center py-6">Pico y Placa</h1>
+        <h1 className="text-4xl font-bold text-center py-6">
+          "Pico y Placa" predictor.
+        </h1>
 
         <div className="flex lg:flex-row flex-col justify-center w-full">
           <section className="lg:w-1/2 w-full h-auto lg:px-12 px-2 py-8">
@@ -63,7 +78,7 @@ export default function Index() {
                   License plate number
                 </label>
                 <input
-                  className="border border-black rounded px-2"
+                  className="border border-black rounded px-2 text-gray-500"
                   type="text"
                   placeholder="Ex: 000000"
                   onChange={(event) => SetPlateNumber(event.target.value)}
@@ -76,7 +91,7 @@ export default function Index() {
                   Date
                 </label>
                 <input
-                  className="border border-black rounded px-2 text-gray-400"
+                  className="border border-black rounded px-2 text-gray-500"
                   type="date"
                   onChange={(event) => SetDate(event.target.value)}
                 />
@@ -88,7 +103,7 @@ export default function Index() {
                   Time
                 </label>
                 <input
-                  className="border border-black rounded px-2"
+                  className="border border-black rounded px-2 text-gray-500"
                   type="text"
                   placeholder="Ex: 17:00"
                   onChange={(event) => SetTime(event.target.value)}
