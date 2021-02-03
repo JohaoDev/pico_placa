@@ -1,4 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:3000/api/picoPlaca";
 
 export default function Index() {
   const [plateNumber, SetPlateNumber] = useState(""),
@@ -7,13 +10,23 @@ export default function Index() {
     [loading, SetLoading] = useState(false),
     [response, SetResponse] = useState("");
 
-  const canTransit = () => {
+  const canTransit = async () => {
     SetLoading(true);
-    console.log({
-      plateNumber,
-      date,
-      time,
-    });
+
+    let postData = {
+      data: {
+        plateNumber,
+        date,
+        time,
+      },
+    };
+
+    axios
+      .post(API_URL, postData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
